@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Block_Board : MonoBehaviour
 {
-    private int board_Size;
+    internal int board_Size;
     private GameObject blockPrefab;
-    private Block[,] blocks;
+    internal Block[,] blocks;
     private TickTackToe tickTackToe;
     private BlockType currentTurn;
     private bool buttonPressed;
@@ -34,13 +34,16 @@ public class Block_Board : MonoBehaviour
                 blocks[i, j].SetUp(this, new Vector2(Horizontal_Offset + Mathf.Abs(Horizontal_Offset * i), Vertical_Offset + Mathf.Abs(Vertical_Offset * j)));
             }
         }
+
+        Block_Scan.Instance.SetUp(this.GetComponent<Block_Board>());
     }
 
 
     public void CheckBoardState()
     {
-        //only has to check for current turn!
+        //only has to check for current turn type!
         //Check horizontally
+        Block_Scan.Instance.Horizontal_Scan(currentTurn);  //returns something
         //check vertically
         //check diagonals
 
