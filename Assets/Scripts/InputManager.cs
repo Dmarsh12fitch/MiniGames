@@ -42,13 +42,18 @@ public class InputManager : MonoBehaviour
 
         Debug.Log("Clicked");
 
-
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100))
         {
             Debug.Log(hit.transform.name);
+            if (hit.collider.gameObject.GetComponent<Block>())
+            {
+                hit.collider.gameObject.GetComponent<Block>().ButtonPress();
+            }
         }
     }
+
+
 
 }
