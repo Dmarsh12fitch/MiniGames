@@ -52,7 +52,7 @@ public class Block : MonoBehaviour
     public void ButtonPress()
     {
         Debug.Log("Button attmpted pressed");
-        if (type != BlockType.Neither) { return; }
+        if (type == BlockType.Neither) { return; }
         if (board.AttemptButtonPress()) { return; }
 
         Debug.Log("Button pressed");
