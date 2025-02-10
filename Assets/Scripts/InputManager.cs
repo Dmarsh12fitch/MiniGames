@@ -3,57 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+namespace TickTackToe_Game
 {
-    public ControlScheme control;
-
-    private Camera main_Camera;
-
-    private void Awake()
+    public class InputManager : MonoBehaviour
     {
-        main_Camera = Camera.main;
-        if (main_Camera != null)
-            Debug.Log("camera connected");
-        else
-            Debug.Log("cemera not connected");
-    }
+        public ControlScheme control;
 
-    private void OnEnable()
-    {
-        if (control == null) control = new ControlScheme();
+        private Camera main_Camera;
 
-        control.ClickMap.MouseClick.performed += Click;
-
-        control.Enable();
-    }
-
-    private void OnDisable()
-    {
-        control.Disable();
-
-        control.ClickMap.MouseClick.performed -= Click;
-
-        control = null;
-    }
-
-    void Click(InputAction.CallbackContext ctx)
-    {
-        if (!ctx.performed) return;
-
-        Debug.Log("Clicked");
-
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        private void Awake()
         {
-            Debug.Log(hit.transform.name);
-            if (hit.collider.gameObject.GetComponent<Block>())
+            main_Camera = Camera.main;
+            if (main_Camera == null) { Debug.Log("cemera not connected"); }
+        }
+
+        private void OnEnable()
+        {
+            if (control == null) control = new ControlScheme();
+
+            control.ClickMap.MouseClick.performed += Click;
+
+            control.Enable();
+        }
+
+        private void OnDisable()
+        {
+            control.Disable();
+
+            control.ClickMap.MouseClick.performed -= Click;
+
+            control = null;
+        }
+
+        void Click(InputAction.CallbackContext ctx)
+        {
+            if (!ctx.performed) return;
+
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
-                hit.collider.gameObject.GetComponent<Block>().ButtonPress();
+                //Debug.Log(hit.transform.name);
+                if (hit.collider.gameObject.GetComponent<Block>())
+                {
+                    hit.collider.gameObject.GetComponent<Block>().ButtonPress();
+                }
             }
         }
+
+
+
     }
-
-
 
 }

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BlockType
+namespace TickTackToe_Game
 {
-    Neither,
-    X,
-    O
+    public enum BlockType
+    {
+        Neither,
+        X,
+        O
+    }
 }
