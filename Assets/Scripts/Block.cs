@@ -12,7 +12,6 @@ namespace TickTackToe_Game
         private BlockType type;
         private Block_Board board;
 
-
         public void SetUp(Block_Board board, Vector2 location)
         {
             this.type = BlockType.Neither;
@@ -54,11 +53,11 @@ namespace TickTackToe_Game
         public void ButtonPress()
         {
             //Debug.Log("Button Pressed?");
-            if (board.AttemptButtonPress(type)) { return; }
+            if (board.tickTackToe.AttemptButtonPress(type)) { return; }
 
             //Debug.Log("Yes Button Pressed");
 
-            SetBlockType(board.GetCurrentTurn());
+            SetBlockType(board.tickTackToe.GetCurrentTurn());
             board.CheckBoardState();
         }
 
