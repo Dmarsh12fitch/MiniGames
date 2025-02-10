@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 namespace TickTackToe_Game
 {
@@ -14,6 +16,8 @@ namespace TickTackToe_Game
 
         private bool buttonPressed;
         private BlockType currentTurn;
+        [SerializeField] private TextMeshProUGUI currentTurnDisplay;
+        [SerializeField] private TextMeshProUGUI currentTurnText;
 
         // Start is called before the first frame update
         void Start()
@@ -24,6 +28,7 @@ namespace TickTackToe_Game
         private void SetUpGame()
         {
             currentTurn = BlockType.X;
+            UpdateCurrentTurnDisplay();
             buttonPressed = false;
             var tempBoard = Instantiate(board_Prefab);
             myBoard = tempBoard.GetComponent<Block_Board>();
@@ -44,6 +49,7 @@ namespace TickTackToe_Game
                     Debug.LogWarning("The current turn is " + currentTurn + " and should not be.");
                     break;
             }
+            UpdateCurrentTurnDisplay();
             buttonPressed = false;
         }
 
@@ -65,6 +71,30 @@ namespace TickTackToe_Game
         {
             //declare winner (current turn)
             Debug.Log(currentTurn + " WON!");
+
+            currentTurnText.text = "Winner is:";
+
+            //bring up buttons to replay or to go to main menu
         }
+
+        private void UpdateCurrentTurnDisplay()
+        {
+            switch (currentTurn)
+            {
+                case BlockType.Neither:
+                    currentTurnDisplay.text = "-";
+                    break;
+                case BlockType.X:
+                    currentTurnDisplay.text = "X";
+                    break;
+                case BlockType.O:
+                    currentTurnDisplay.text = "O";
+                    break;
+                default:
+                    currentTurnDisplay.text = "&";
+                    break;
+            }
+        }
+
     }
 }
